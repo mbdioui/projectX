@@ -14,7 +14,7 @@ Vous devez réaliser une application native *Android* affichant la liste des **a
 
 
 
-##Nous observerons particulièrement :
+### Nous observerons particulièrement :
 
 - :ok_hand: Les choix d'architecture
 
@@ -26,7 +26,7 @@ Vous devez réaliser une application native *Android* affichant la liste des **a
 
 - :ok_hand: Les tests
 
-##Nous rejetterons le test si un des éléments suivants n'est pas présent :
+### Nous rejetterons le test si un des éléments suivants n'est pas présent :
 
 - :point_right: Tests unitaires
 
