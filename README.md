@@ -1,5 +1,5 @@
 # DSF
-Vous devez réaliser une application native *Android* affichant la liste des **albums** suivant :[lien statique json] (https://static.leboncoin.fr/img/shared/technical-test.json)
+Vous devez réaliser une application native *Android* affichant la liste des **albums** suivant : [lien statique json] (https://static.leboncoin.fr/img/shared/technical-test.json)
 
 
 ## Prérequis :
