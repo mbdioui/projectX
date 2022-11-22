@@ -1,6 +1,5 @@
 package fr.leboncoin.projectx.dataBase.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
@@ -16,8 +15,8 @@ interface TrackDao {
     fun insertTracks(Tracks: List<Track>)
 
     @Query("SELECT * from Track")
-    fun getAllTracks(): LiveData<List<Track>>
+    suspend fun getAllTracks(): List<Track>
 
     @Query("SELECT * from Track where id= :id")
-    fun getTrackById(id: Long): Track?
+    suspend fun getTrackById(id: Long): Track?
 }
