@@ -10,7 +10,9 @@ import fr.leboncoin.projectx.dataBase.MusicDataBase
 import fr.leboncoin.projectx.dataBase.dao.TrackDao
 import fr.leboncoin.projectx.models.Track
 import fr.leboncoin.projectx.network.TracksApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 enum class TracksStatus { DONE, LOADING, ERROR }
 
@@ -51,13 +53,18 @@ class TracksViewModel(application: Application, dataBase: MusicDataBase) :
             _status.value = TracksStatus.LOADING
             try {
                 var result: List<Track>
-                val tracksFromDataBase = tracksDao.getAllTracks()
-                result = tracksFromDataBase
-                Log.i("TracksViewModel", "getting tracks from Room database $tracksFromDataBase")
-                if (tracksFromDataBase.isEmpty()) {
-                    result = TracksApi.retrofitService.getTracks()
-                    Log.i("TracksViewModel", "getting tracks from API ")
-                    tracksDao.insertTracks(result)
+                withContext(Dispatchers.IO) {
+                    val tracksFromDataBase = tracksDao.getAllTracks()
+                    result = tracksFromDataBase
+                    Log.i(
+                        "TracksViewModel",
+                        "getting tracks from Room database $tracksFromDataBase"
+                    )
+                    if (tracksFromDataBase.isEmpty()) {
+                        result = TracksApi.retrofitService.getTracks()
+                        Log.i("TracksViewModel", "getting tracks from API ")
+                        tracksDao.insertTracks(result)
+                    }
                 }
                 if (result.isNotEmpty()) _tracks.value = result
                 _status.value = TracksStatus.DONE
