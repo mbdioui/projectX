@@ -9,11 +9,11 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "Track")
 data class Track(
     @PrimaryKey(autoGenerate = true)
-    var id: Long=0L,
-    var albumId: Long = 1L,
-    var title: String? = "title",
-    var url: String? = "url",
-    var thumbnailUrl: String? = "thumbnailURL"
+    val id: Long=0L,
+    val albumId: Long = 1L,
+    val title: String? = "title",
+    val url: String? = "url",
+    val thumbnailUrl: String? = "thumbnailURL"
 ) : Parcelable {
     override fun toString() = "$albumId,$id,$title,$url,$thumbnailUrl"
 }

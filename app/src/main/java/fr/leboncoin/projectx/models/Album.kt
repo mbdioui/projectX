@@ -7,4 +7,4 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "Album")
-data class Album(@PrimaryKey var id: Long=0L, var title: String?) : Parcelable
+data class Album(@PrimaryKey val id: Long=0L, val title: String?) : Parcelable

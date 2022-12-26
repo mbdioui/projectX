@@ -9,7 +9,7 @@ buildscript {
     ext.glide_version = "4.14.2"
     ext.recycler_version = "1.2.1"
     ext.room_version = "2.4.3"
-    ext.hilt_version = "2.44"
+    ext.hilt_version = "2.44.2"
     repositories {
         google()
     }
