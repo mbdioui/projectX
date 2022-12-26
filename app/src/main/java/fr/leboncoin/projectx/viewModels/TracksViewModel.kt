@@ -1,23 +1,27 @@
 package fr.leboncoin.projectx.viewModels
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import fr.leboncoin.projectx.dataBase.MusicDataBase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.leboncoin.projectx.dataBase.dao.TrackDao
 import fr.leboncoin.projectx.models.Track
-import fr.leboncoin.projectx.network.TracksApi
+import fr.leboncoin.projectx.network.TrackApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 enum class TracksStatus { DONE, LOADING, ERROR }
 
-class TracksViewModel(application: Application, dataBase: MusicDataBase) :
-    AndroidViewModel(application) {
+@HiltViewModel
+class TracksViewModel @Inject constructor(
+    private val tracksDao: TrackDao,
+    private val trackApi: TrackApiService
+) :
+    ViewModel() {
 
     private val _status = MutableLiveData<TracksStatus>()
     val status: LiveData<TracksStatus>
@@ -28,15 +32,11 @@ class TracksViewModel(application: Application, dataBase: MusicDataBase) :
         get() = _tracks
 
     private val _navigateToSelectedTrack = MutableLiveData<Track?>()
-    private var musicDataBase: MusicDataBase
-    private var tracksDao: TrackDao
 
     val navigateToSelectedTrack: LiveData<Track?>
         get() = _navigateToSelectedTrack
 
     init {
-        musicDataBase = dataBase
-        tracksDao = musicDataBase.trackDao
         getTracks()
     }
 
@@ -61,7 +61,7 @@ class TracksViewModel(application: Application, dataBase: MusicDataBase) :
                         "getting tracks from Room database $tracksFromDataBase"
                     )
                     if (tracksFromDataBase.isEmpty()) {
-                        result = TracksApi.retrofitService.getTracks()
+                        result = trackApi.getTracks()
                         Log.i("TracksViewModel", "getting tracks from API ")
                         tracksDao.insertTracks(result)
                     }

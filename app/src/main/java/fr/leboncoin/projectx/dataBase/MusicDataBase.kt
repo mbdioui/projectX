@@ -10,7 +10,7 @@ import fr.leboncoin.projectx.models.Track
 
 @Database(entities = [Track::class, Album::class], version = 1, exportSchema = false)
 abstract class MusicDataBase : RoomDatabase() {
-    abstract val trackDao: TrackDao
+    abstract fun getDao(): TrackDao
 
     companion object {
         private const val DATABASE_NAME = "Music DataBase"
