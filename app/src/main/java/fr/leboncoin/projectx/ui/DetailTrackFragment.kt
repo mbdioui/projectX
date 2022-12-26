@@ -23,7 +23,7 @@ class DetailTrackFragment : Fragment() {
             val selectedTrack = DetailTrackFragmentArgs.fromBundle(it).selectedTrack
             val viewModelFactory = DetailViewModelFactory(selectedTrack)
             binding.viewModel =
-                ViewModelProvider(this, viewModelFactory).get(DetailTrackViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory)[DetailTrackViewModel::class.java]
         }
 
         return binding.root
