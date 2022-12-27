@@ -1,5 +1,6 @@
 package fr.leboncoin.projectx.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ class DetailTrackViewModel(track: Track) : ViewModel() {
 
     // Initialize the _selectedProperty MutableLiveData
     init {
+        Log.i(javaClass.name, track.id.toString())
         _selectedTrack.value = track
     }
 }
